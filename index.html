@@ -4,62 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personality Quiz</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    h1 {
-      color: #4CAF50;
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    .dropdown {
-      margin: 10px 0;
-    }
-
-    select {
-      width: 300px;
-      padding: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      color: white;
-      background-color: #4CAF50;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    pre {
-      background-color: #f4f4f4;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 20px;
-      width: 80%;
-      max-width: 600px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css"> <!-- Optional for CSS separation -->
 </head>
 <body>
   <h1>Discover Your Personality Type</h1>
@@ -96,38 +41,6 @@
   <button id="fetch-data">Submit</button>
   <pre id="result"></pre>
 
-  <!-- JavaScript -->
-  <script>
-    const fetchDataButton = document.getElementById('fetch-data');
-    const resultElement = document.getElementById('result');
-
-    fetchDataButton.addEventListener('click', async () => {
-      // Gather responses from dropdowns
-      const q1 = document.getElementById('q1').value;
-      const q2 = document.getElementById('q2').value;
-      const q3 = document.getElementById('q3').value;
-
-      const userResponses = {
-        question1: q1,
-        question2: q2,
-        question3: q3,
-      };
-
-      try {
-        // Send user input to the backend
-        const response = await fetch('/api/personality', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userResponses),
-        });
-
-        const data = await response.json();
-        resultElement.textContent = data.result;
-      } catch (error) {
-        console.error('Error:', error);
-        resultElement.textContent = 'Error fetching data. Please try again.';
-      }
-    });
-  </script>
+  <script src="script.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
