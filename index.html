@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personality Quiz</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #4CAF50;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .dropdown {
+      margin: 10px 0;
+    }
+
+    select {
+      width: 300px;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    pre {
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1>Discover Your Personality Type</h1>
+
+  <!-- Dropdown Questions -->
+  <div class="dropdown">
+    <label for="q1">1. How do you prefer to spend your free time?</label>
+    <select id="q1">
+      <option value="Reading a book">Reading a book</option>
+      <option value="Hanging out with friends">Hanging out with friends</option>
+      <option value="Exploring new hobbies">Exploring new hobbies</option>
+    </select>
+  </div>
+
+  <div class="dropdown">
+    <label for="q2">2. What motivates you the most?</label>
+    <select id="q2">
+      <option value="Achieving personal goals">Achieving personal goals</option>
+      <option value="Helping others">Helping others</option>
+      <option value="Learning and growing">Learning and growing</option>
+    </select>
+  </div>
+
+  <div class="dropdown">
+    <label for="q3">3. How do you approach decision-making?</label>
+    <select id="q3">
+      <option value="Rely on logic">Rely on logic</option>
+      <option value="Go with your gut">Go with your gut</option>
+      <option value="Seek advice from others">Seek advice from others</option>
+    </select>
+  </div>
+
+  <!-- Button and Result Area -->
+  <button id="fetch-data">Submit</button>
+  <pre id="result"></pre>
+
+  <!-- JavaScript -->
+  <script>
+    const fetchDataButton = document.getElementById('fetch-data');
+    const resultElement = document.getElementById('result');
+
+    fetchDataButton.addEventListener('click', async () => {
+      // Gather responses from dropdowns
+      const q1 = document.getElementById('q1').value;
+      const q2 = document.getElementById('q2').value;
+      const q3 = document.getElementById('q3').value;
+
+      const userResponses = {
+        question1: q1,
+        question2: q2,
+        question3: q3,
+      };
+
+      try {
+        // Send user input to the backend
+        const response = await fetch('/api/personality', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userResponses),
+        });
+
+        const data = await response.json();
+        resultElement.textContent = data.result;
+      } catch (error) {
+        console.error('Error:', error);
+        resultElement.textContent = 'Error fetching data. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
