@@ -9,9 +9,9 @@ export default async function handler(req, res) {
       'Content-Type': 'application/json',
     };
     const data = {
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'system', content: 'You are a ai asistant for a turkish 8th gradelarning app called vocabr you answer turkish 8th grade questions and explain answers and only answer in turkish like a teacher wouldt.' },
         { role: 'user', content: userMessage },
       ],
     };
